@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}Editar Termo - {{ termo_original }}{% endblock %}
+
+{% block content %}
+    <h1>Editar Termo: <span style="color: #555;">{{ termo_original }}</span></h1>
+
+    <form method="POST" action="{{ url_for('editar_termo', termo_original=termo_original) }}">
+        <div>
+            <label for="novo_termo">Termo:</label>
+            <input type="text" id="novo_termo" name="novo_termo" value="{{ request.form.novo_termo if request.form.novo_termo else termo_original }}" required>
+        </div>
+        <div>
+            <label for="nova_definicao">Definição:</label>
+            <textarea id="nova_definicao" name="nova_definicao" rows="4" required>{{ request.form.nova_definicao if request.form.nova_definicao else definicao_original }}</textarea>
+        </div>
+        <button type="submit">Salvar Alterações</button>
+        <a href="{{ url_for('dicionario') }}" class="btn-cancel">Cancelar</a>
+    </form>
+{% endblock %}

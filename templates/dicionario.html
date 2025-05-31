@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}Dicionário de Termos{% endblock %}
+
+{% block content %}
+    <h1>Dicionário de Termos de Programação</h1>
+
+    <section id="adicionar-termo">
+        <h2>Adicionar Novo Termo</h2>
+        <form method="POST" action="{{ url_for('adicionar_termo') }}">
+            <div>
+                <label for="termo">Termo:</label>
+                <input type="text" id="termo" name="termo" required>
+            </div>
+            <div>
+                <label for="definicao">Definição:</label>
+                <textarea id="definicao" name="definicao" rows="3" required></textarea>
+            </div>
+            <button type="submit">Adicionar Termo</button>
+        </form>
+    </section>
+
+    <section id="visualizar-termos">
+        <h2>Termos Existentes</h2>
+        {% if termos %}
+            <ul class="term-list">
+                {% for termo, definicao in termos.items()|sort %}
+                <li>
+                    <div><strong>{{ termo }}</strong>: {{ definicao }}</div>
+                    <div class="term-actions">
+                        <a href="{{ url_for('editar_termo', termo_original=termo) }}" class="btn-edit">Editar</a>
+                        <form method="POST" action="{{ url_for('deletar_termo', termo=termo) }}" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja deletar o termo \'{{ termo }}\'?');">
+                            <button type="submit" class="btn-delete">Deletar</button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Nenhum termo encontrado no dicionário. Adicione o primeiro!</p>
+        {% endif %}
+    </section>
+{% endblock %}

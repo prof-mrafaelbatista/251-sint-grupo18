@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}Tirar Dúvidas com IA{% endblock %}
+
+{% block content %}
+    <h1>Tire suas Dúvidas sobre Python com a IA</h1>
+    
+    {% if not GEMINI_API_CONFIGURED %}
+    <div class="flashes">
+        <li class="warning">
+            <strong>Atenção:</strong> A funcionalidade de tutoria com IA não está configurada corretamente.
+            A chave da API do Gemini (<code>GEMINI_API_KEY</code>) não foi encontrada ou não pôde ser inicializada.
+            Por favor, configure-a corretamente como uma variável de ambiente para habilitar esta funcionalidade.
+            <p>Exemplo (Linux/macOS): <code>export GEMINI_API_KEY="SUA_CHAVE_API_AQUI"</code></p>
+            <p>Exemplo (Windows CMD): <code>set GEMINI_API_KEY="SUA_CHAVE_API_AQUI"</code></p>
+        </li>
+    </div>
+    {% endif %}
+
+    <p>Faça uma pergunta sobre programação em Python e nossa IA (integrada com Gemini) tentará responder.</p>
+
+    <form method="POST" action="{{ url_for('ia_gemini') }}">
+        <div>
+            <label for="pergunta">Sua Pergunta:</label>
+            <textarea id="pergunta" name="pergunta" rows="5" required>{{ pergunta_usuario if pergunta_usuario }}</textarea>
+        </div>
+        <button type="submit" {% if not GEMINI_API_CONFIGURED %}disabled title="API do Gemini não configurada"{% endif %}>Enviar Pergunta</button>
+    </form>
+
+    {% if resposta_gemini %}
+    <section class="resposta-gemini">
+        <h2>Resposta da IA:</h2>
+        <pre>{{ resposta_gemini }}</pre>
+    </section>
+    {% endif %}
+{% endblock %}

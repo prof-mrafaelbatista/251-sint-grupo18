@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}Nossa Equipe{% endblock %}
+
+{% block content %}
+    <h1>Nossa Equipe</h1>
+    <p>Conheça os desenvolvedores deste projeto.</p>
+    
+    <div class="team-members">
+        {% if equipe %}
+            {% for membro in equipe %}
+            <div class="member-card">
+                {% if membro.foto %}
+                    <img src="{{ membro.foto if membro.foto.startswith('http') else url_for('static', filename='img/' + membro.foto) }}" alt="Foto de {{ membro.nome }}" class="member-photo">
+                {% else %}
+                     <!-- Você pode colocar uma imagem placeholder aqui se quiser -->
+                     <!-- <img src="{{ url_for('static', filename='img/placeholder_avatar.png') }}" alt="Avatar Padrão" class="member-photo"> -->
+                {% endif %}
+                <h2>{{ membro.nome }}</h2>
+                <p>
+                    {% if membro.linkedin %}<a href="{{ membro.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>{% endif %}
+                    {% if membro.linkedin and membro.website %} | {% endif %}
+                    {% if membro.website %}<a href="{{ membro.website }}" target="_blank" rel="noopener noreferrer">Website Pessoal</a>{% endif %}
+                </p>
+                {% if membro.descricao %}<p>{{ membro.descricao }}</p>{% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>Informações da equipe não disponíveis no momento. Edite o arquivo <code>app.py</code> para adicionar os membros.</p>
+        {% endif %}
+    </div>
+{% endblock %}

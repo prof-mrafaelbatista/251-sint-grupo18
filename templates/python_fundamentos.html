@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}Fundamentos de Python{% endblock %}
+
+{% block content %}
+    <h1>Fundamentos da Programação em Python</h1>
+    <p>Nesta seção, você aprenderá os conceitos básicos e essenciais da linguagem Python.</p>
+
+    {% for chave, secao in fundamentos.items() %}
+    <section id="{{ chave }}" class="fundamento-secao">
+        <h2>{{ secao.titulo }}</h2>
+        
+        <h3>Conceito</h3>
+        <p>{{ secao.conceito | safe }}</p> {# Usar |safe se o conteúdo tiver HTML, mas cuidado com XSS se o conteúdo for dinâmico #}
+        
+        <h3>Aplicação</h3>
+        <p>{{ secao.aplicacao | safe }}</p>
+        
+        <h3>Exemplo de Código</h3>
+        <pre><code>{{ secao.exemplo }}</code></pre>
+    </section>
+    {% endfor %}
+{% endblock %}

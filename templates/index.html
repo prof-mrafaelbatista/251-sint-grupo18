@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Página Inicial{% endblock %}
+
+{% block content %}
+    <header style="text-align: center; margin-bottom: 30px;">
+        <h1>Bem-vindo ao Site Interativo sobre Fundamentos de Python!</h1>
+        <p style="font-size: 1.2em; color: #555;">Explore os conceitos da programação em Python, tire suas dúvidas com nossa IA e consulte nosso dicionário de termos.</p>
+    </header>
+    
+    <section class="quick-links">
+        <h2>Acesso Rápido:</h2>
+        <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 10px;"><a href="{{ url_for('python_fundamentos') }}" class="btn">Aprenda os Fundamentos de Python</a></li>
+            <li style="margin-bottom: 10px;"><a href="{{ url_for('dicionario') }}" class="btn">Consulte o Dicionário de Termos</a></li>
+            <li style="margin-bottom: 10px;"><a href="{{ url_for('ia_gemini') }}" class="btn">Tire suas Dúvidas com a IA</a></li>
+            <li style="margin-bottom: 10px;"><a href="{{ url_for('equipe') }}" class="btn">Conheça a Equipe</a></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Sobre o Projeto</h2>
+        <p>Este site foi desenvolvido como uma ferramenta educacional para auxiliar no aprendizado dos fundamentos da linguagem de programação Python. Aqui você encontrará explicações claras sobre conceitos chave, exemplos práticos de código, um dicionário interativo para consulta de termos técnicos e uma seção de perguntas e respostas com inteligência artificial para sanar dúvidas específicas.</p>
+        <p>Esperamos que este recurso seja útil em sua jornada de aprendizado!</p>
+    </section>
+{% endblock %}

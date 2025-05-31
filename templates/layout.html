@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Fundamentos de Python{% endblock %} - Meu Projeto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}" class="{{ 'active' if request.endpoint == 'index' else '' }}">Início</a></li>
+            <li><a href="{{ url_for('python_fundamentos') }}" class="{{ 'active' if request.endpoint == 'python_fundamentos' else '' }}">Fundamentos de Python</a></li>
+            <li><a href="{{ url_for('dicionario') }}" class="{{ 'active' if request.endpoint == 'dicionario' else '' }}">Dicionário de Termos</a></li>
+            <li><a href="{{ url_for('ia_gemini') }}" class="{{ 'active' if request.endpoint == 'tutoria_gemini' else '' }}">Tirar Dúvidas (IA)</a></li>
+            <li><a href="{{ url_for('equipe') }}" class="{{ 'active' if request.endpoint == 'equipe' else '' }}">Equipe</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        &lt;p&gt;&copy; {{ current_year }} Projeto Fundamentos de Python. Desenvolvido com Flask e Gemini.&lt;/p&gt;
+    </footer>
+</body>
+</html>
